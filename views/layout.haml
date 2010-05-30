@@ -1,0 +1,53 @@
+!!! 5
+%html
+  %head
+    %title Bangkok
+    %link{ :rel => "stylesheet", :href => "http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css", :type =>"text/css" }
+    %link{ :rel => "stylesheet", :href => "/css/style.css", :type => "text/css" }
+    %link{ :rel => "stylesheet", :href => "/css/facebox.css", :type => "text/css" }
+    %script{ :type => "text/javascript", :src => "/js/jquery-1.4.2.min.js" }
+    %script{ :type => "text/javascript", :src => "/js/facebox.js" }
+    %script{ :type => "text/javascript" }
+      jQuery(document).ready(function($) { $('a[rel*=facebox]').facebox() })
+  %body.rounded
+    %div#doc3.yui-t0
+      %div#hd
+        %h1 Athens Database Interface
+        %div#navigation
+          %ul#primary-navigation
+            %li.active
+              %a{ :href => '/' } Databases
+            %li
+              %a{ :href => '#' } Tables
+
+          %ul#user-navigation
+            %li
+              %a{ :href => '#' } Profile
+            %li
+              %a{ :href => '#' } Settings
+            %li
+              %a{ :href => '#' } Logout
+          %div.clear
+      %div#bd
+        %div#yui-main
+          %div.yui-b
+            %div.yui-g
+              %div.block
+                %div.bd
+                  = yield
+                  %ul.pager
+                    %li
+                      %a{ :href => "#" } &#171; Prev
+                    %li
+                      %a{ :href => "#" } 1
+                    %li
+                      %a{ :href => "#" } 2
+                    %li
+                      %a{ :href => "#" } 3
+                    %li.active
+                      %a{ :href => "#" } 4
+                    %li
+                      %a{ :href => "#" } Next &#187
+      %div#ft
+        %p.inner
+          Copyright &copy; 2009 Blah Your Website

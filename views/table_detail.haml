@@ -1,0 +1,36 @@
+%table#main.zebra
+  %thead
+    %tr
+      - @schema_list.each do |header|
+        %td
+          %a{ :href => '#' }
+            #{header.first.to_s.gsub('_',' ').capitalize}
+      %td
+        Admin
+
+  %tbody
+    - @row_list.each do |row|
+      %tr
+        - @schema_list.each do |schema|
+          %td
+            -# Use facebox for longtext fields
+            - if schema.last[:db_type] == 'longtext'
+              %a(href="#info#{row.id}#{schema.id}" rel="facebox") Display field
+              %div(id="info#{row.id}#{schema.id}" class="hidden")
+                %textarea{ :style => "width:40em; height: 20em;" }
+                  #{row[schema.first]}
+                
+            - elsif schema.last[:type] == :boolean
+              - if row[schema.first] == true
+                %img{ :src => '/img/icon-yes.gif' }
+              - else
+                %img{ :src => '/img/icon-no.gif' }
+
+            - else
+              -# Show the actual data
+              #{row[schema.first]}
+
+        %td.text-right
+          %a{ :href => '#' } edit
+          |
+          %a{ :href => '#' } delete

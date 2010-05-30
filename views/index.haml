@@ -1,0 +1,16 @@
+%table#main.zebra
+  %thead
+    %tr
+      %td
+        %a{ :href => '#' } Database Name
+      %td
+        Admin
+
+  %tbody
+    - while row = @res.fetch_row do
+      %tr
+        %td
+          %a(href='#{row}') #{row}
+        %td.text-right
+          %a{ :href => '#' } edit |
+          %a{ :href => '#' } delete

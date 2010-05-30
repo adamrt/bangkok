@@ -1,0 +1,18 @@
+%table#main.zebra
+  %thead
+    %tr
+      %td
+        %a{ :href => '#' }
+          Table Name
+      %td
+        Admin
+
+  %tbody
+    - @db.tables.each do |table|
+      %tr
+        %td
+          %a(href='/#{@db.opts[:database]}/#{table}') #{ table }
+        %td.text-right
+          %a{ :href => '#' } edit
+          |
+          %a{ :href => '#' } delete
