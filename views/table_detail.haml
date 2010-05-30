@@ -3,7 +3,7 @@
     %tr
       - @schema_list.each do |header|
         %td
-          %a{ :href => '#' }
+          %a( href='#{@path}?o=#{header.first}')
             #{header.first.to_s.gsub('_',' ').capitalize}
       %td
         Admin
