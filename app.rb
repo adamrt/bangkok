@@ -11,6 +11,49 @@ PASSWORD = ''
 ADAPTER = 'mysql'
 set :haml, {:format => :html5 }
 
+# Classes
+class Table
+
+  attr_accessor :params_list
+  
+  def initialize(params)
+    @params = params
+    @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>@params[:db], :user=>USER, :password=>PASSWORD)
+    @path = '/' + @params[:db].to_s + '/' + @params[:table].to_s
+    @symbol = @params[:table].to_sym
+    @params_list = Hash.new
+    
+    if @params[:l] and @params[:l] != ''
+      @limit = @params[:l].to_i
+    else
+      @limit = 25
+    end
+
+    @params_list['l'] = "#{@limit}"    
+
+    if @params[:o]
+      @order = @params[:o].to_sym
+      @params_list['o'] = "#{@order.to_s}"
+    else
+      @order = nil
+    end
+  end
+
+  def to_s
+    "#{params[:table]}"
+  end
+
+  def row_list
+    qs = @db[@symbol].limit(@limit)
+    qs = qs.order(@order) if !@order.nil?
+    return qs
+  end
+
+  def schema
+    @db.schema(@symbol)
+  end
+end
+
 # Routes
 get '/' do
   begin
@@ -28,14 +71,6 @@ get '/:db' do
 end
 
 get '/:db/:table' do
-  db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
-  table = params[:table].to_sym
-  @path = '/' + params[:db].to_s + '/' + params[:table].to_s
-  qs = db[table].limit(20)
-  if params[:o]
-    qs = qs.order(params[:o].to_sym)
-  end
-  @row_list = qs
-  @schema_list = db.schema(table)
+  @table = Table.new(params)
   haml :table_detail
 end
