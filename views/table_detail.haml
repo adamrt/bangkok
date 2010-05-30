@@ -15,7 +15,9 @@
           %td
             -# Use facebox for longtext fields
             - if schema.last[:db_type] == 'longtext'
-              %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox") [ Show field ]
+              [ 
+              %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox")< Show field
+              ]
               %div(id="info#{row.object_id}#{schema.object_id}" class="hidden")
                 %textarea{ :style => "width:60em; height: 30em;" }
                   #{row[schema.first]}
