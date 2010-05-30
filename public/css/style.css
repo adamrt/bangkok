@@ -67,7 +67,8 @@ text-align:left;}
 table#main thead { background-color:#262626; color:#fff; font-weight:bold; }
 table#main thead a { text-decoration:none; color:#fff; }
 table#main thead a:hover { text-decoration:underline; }
-table#main tbody a { text-decoration:underline; }
+table#main tbody a { text-decoration:none; color:#262626 }
+table#main tbody a:hover { text-decoration:underline; color:#262626 }
 
 table#main.zebra tbody tr:nth-child(even) {background: #eee}
 table#main.zebra tbody tr:nth-child(odd) {background: #fff}
