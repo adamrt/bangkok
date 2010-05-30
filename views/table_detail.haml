@@ -5,9 +5,6 @@
         %td
           %a(href='#{@path}?o=#{header.first}&l=#{@table.params_list["l"]}')
             #{header.first.to_s.gsub('_',' ').capitalize}
-      %td
-        Admin
-
   %tbody
     - @table.row_list.each do |row|
       %tr
@@ -34,8 +31,3 @@
               %div(id="info#{row.object_id}#{schema.object_id}" class="hidden")
                 %h2= schema.first.to_s.capitalize
                 %input(type="text" style="width:40em" value="#{row[schema.first]}")
-
-        %td.text-right
-          %a{ :href => '#' } edit
-          |
-          %a{ :href => '#' } delete
