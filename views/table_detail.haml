@@ -28,7 +28,10 @@
 
             - else
               -# Show the actual data
-              #{row[schema.first]}
+              %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox") #{row[schema.first]}
+              %div(id="info#{row.object_id}#{schema.object_id}" class="hidden")
+                %h2= schema.first.to_s.capitalize
+                %input(type="text" style="width:40em" value="#{row[schema.first]}")
 
         %td.text-right
           %a{ :href => '#' } edit
