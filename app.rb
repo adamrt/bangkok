@@ -67,7 +67,7 @@ get '/db' do
   ensure
     dbh.close if dbh
   end
-  haml :index
+  haml :db_list
 end
 
 
