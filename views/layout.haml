@@ -20,13 +20,21 @@
             %a(href="#") Logout
       %div.breadcrumbs
         %a(href="/db") Database List
-        &rsaquo;
-      %div#content.flex
-        %h1 Select something here
+        - if @db
+          &rsaquo;
+          = @db.opts[:database]
+        - if @table
+          &rsaquo;
+          %a(href="#{@table.db_url}")
+            = @table.db.opts[:database]
+          &rsaquo;
+          = @table
+
+      %div#content
         %div#content-main
           %div#changelist.module
             = yield
 
-        %br(class="clear")/
+        %br(style="clear:both")
 
       %div#footer
