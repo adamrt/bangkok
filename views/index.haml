@@ -4,7 +4,7 @@
       %td
         %a{ :href => '#' } Database Name
   %tbody
-    - while row = @res.fetch_row do
+    - while row = @rows.fetch_row do
       %tr
         %td
           %a(href='#{row}') #{row}

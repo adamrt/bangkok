@@ -58,7 +58,7 @@ end
 get '/' do
   begin
     dbh = Mysql.real_connect("localhost", "root", "")
-    @res = dbh.query("SHOW DATABASES")
+    @rows = dbh.query("SHOW DATABASES")
   ensure
     dbh.close if dbh
   end
