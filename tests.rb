@@ -1,4 +1,4 @@
-require 'app'
+require 'bangkok'
 require 'rubygems'
 require 'test/unit'
 require 'rack/test'
