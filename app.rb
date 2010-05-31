@@ -15,25 +15,26 @@ set :haml, {:format => :html5 }
 class Table
 
   attr_accessor :params_list
-  
+
   def initialize(params)
     @params = params
     @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>@params[:db], :user=>USER, :password=>PASSWORD)
     @path = '/db/' + @params[:db].to_s + '/' + @params[:table].to_s
     @symbol = @params[:table].to_sym
     @params_list = Hash.new
-    
+
     if @params[:l] and @params[:l] != ''
       @limit = @params[:l].to_i
     else
       @limit = 25
     end
 
-    @params_list['l'] = "#{@limit}"    
+    @params_list['l'] = "#{@limit}"
 
     if @params[:o]
       @order = @params[:o].to_sym
-      @params_list['o'] = "#{@order.to_s}"
+      @params_list['o'] = @params[:o]
+      @params_list['ot'] = @params[:ot] if !@params[:ot].nil?
     else
       @order = nil
     end
@@ -45,7 +46,13 @@ class Table
 
   def row_list
     qs = @db[@symbol].limit(@limit)
-    qs = qs.order(@order) if !@order.nil?
+    if @order
+      if @params[:ot].to_s == 'd'
+        qs = qs.reverse_order(@order)
+      else
+        qs = qs.order(@order)
+      end
+    end
     return qs
   end
 
@@ -70,9 +77,12 @@ get '/db' do
   haml :db_list
 end
 
-
 get '/db/:db' do
+  @table_list = Hash.new
   @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
+  @db.tables.each do |table|
+    @table_list[table] = table
+  end
   haml :table_list
 end
 
