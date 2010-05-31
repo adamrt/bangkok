@@ -33,7 +33,7 @@ class Table
     if params[:l] and params[:l] != ''
       @limit = params[:l].to_i
     else
-      @limit = 25
+      @limit = 10
     end
 
     if params[:o]
