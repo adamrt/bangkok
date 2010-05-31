@@ -17,45 +17,41 @@ class Table
   attr_accessor :params_list, :db, :content_url, :schema_url, :db_url, :view
 
   def initialize(params)
-    @params = params
-    @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>@params[:db], :user=>USER, :password=>PASSWORD)
-    @content_url = '/db/' + @params[:db].to_s + '/' + @params[:table].to_s + '/content'
-    @schema_url = '/db/' + @params[:db].to_s + '/' + @params[:table].to_s + '/schema'
-    @db_url = '/db/' + @params[:db].to_s
-    @symbol = @params[:table].to_sym
+    @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
+    @symbol = params[:table].to_sym
+    @schema = @db.schema(@symbol)
     @params_list = Hash.new
+    @view = params[:view]
 
-    if @params[:l] and @params[:l] != ''
-      @limit = @params[:l].to_i
+    # urls
+    @content_url = '/db/' + params[:db] + '/' + params[:table] + '/content'
+    @schema_url = '/db/' + params[:db]+ '/' + params[:table] + '/schema'
+    @db_url = '/db/' + params[:db].to_s
+
+
+    if params[:l] and params[:l] != ''
+      @params_list['l'] = @limit = params[:l].to_i
     else
-      @limit = 25
+      @params_list['l'] = @limit = 25
     end
 
-    if @params[:view] == 'content'
-      @view = 'content'
-    elsif @params[:view] == 'schema'
-      @view = 'schema'
-    end
-    
-    @params_list['l'] = "#{@limit}"
-
-    if @params[:o]
-      @order = @params[:o].to_sym
-      @params_list['o'] = @params[:o]
-      @params_list['ot'] = @params[:ot] if !@params[:ot].nil?
+    if params[:o]
+      @order = params[:o].to_sym
+      @params_list['o'] = params[:o]
+      @params_list['ot'] = params[:ot] if !params[:ot].nil?
     else
       @order = nil
     end
   end
 
   def to_s
-    "#{@params[:table]}"
+    params[:table]
   end
 
   def row_list
     qs = @db[@symbol].limit(@limit)
     if @order
-      if @params[:ot].to_s == 'd'
+      if params[:ot] == 'd'
         qs = qs.reverse_order(@order)
       else
         qs = qs.order(@order)
@@ -64,9 +60,6 @@ class Table
     return qs
   end
 
-  def schema
-    @db.schema(@symbol)
-  end
 end
 
 # Routes
