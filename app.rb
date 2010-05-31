@@ -14,12 +14,13 @@ set :haml, {:format => :html5 }
 # Classes
 class Table
 
-  attr_accessor :params_list
+  attr_accessor :params_list, :db, :url, :db_url
 
   def initialize(params)
     @params = params
     @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>@params[:db], :user=>USER, :password=>PASSWORD)
-    @path = '/db/' + @params[:db].to_s + '/' + @params[:table].to_s
+    @url = '/db/' + @params[:db].to_s + '/' + @params[:table].to_s
+    @db_url = '/db/' + @params[:db].to_s
     @symbol = @params[:table].to_sym
     @params_list = Hash.new
 
@@ -41,7 +42,7 @@ class Table
   end
 
   def to_s
-    "#{params[:table]}"
+    "#{@params[:table]}"
   end
 
   def row_list
