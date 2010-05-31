@@ -20,13 +20,13 @@
         - if @table.params_list['o'].to_s == header.first.to_s
           - if @table.params_list['ot'].to_s == 'd'
             %th.sorted.descending
-              %a(href='#{@path}?o=#{header.first}&l=#{@table.params_list["l"]}&ot=a')= header.first.to_s
+              %a(href='#{@table.url}?o=#{header.first}&l=#{@table.params_list["l"]}&ot=a')= header.first.to_s
           - else
             %th.sorted.ascending
-              %a(href='#{@path}?o=#{header.first}&l=#{@table.params_list["l"]}&ot=d')= header.first.to_s
+              %a(href='#{@table.url}?o=#{header.first}&l=#{@table.params_list["l"]}&ot=d')= header.first.to_s
         - else
           %th
-            %a(href='#{@path}?o=#{header.first}&l=#{@table.params_list["l"]}')= header.first.to_s
+            %a(href='#{@table.url}?o=#{header.first}&l=#{@table.params_list["l"]}')= header.first.to_s
   %tbody
     - @table.row_list.each do |row|
       %tr
