@@ -2,7 +2,8 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'sequel'
-require "mysql"
+require 'mysql'
+
 
 # Settings
 HOST = 'localhost'
@@ -14,7 +15,7 @@ set :haml, {:format => :html5 }
 # Classes
 class Table
 
-  attr_accessor :params_list, :db, :content_url, :schema_url, :db_url, :view
+  attr_accessor :params_list, :db, :content_url, :schema_url, :db_url, :view, :schema, :params
 
   def initialize(params)
     @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
@@ -22,6 +23,7 @@ class Table
     @schema = @db.schema(@symbol)
     @params_list = Hash.new
     @view = params[:view]
+    @params = params
 
     # urls
     @content_url = '/db/' + params[:db] + '/' + params[:table] + '/content'
