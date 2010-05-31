@@ -41,7 +41,15 @@
               %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox") Show field
               ]
               %div(id="info#{row.object_id}#{schema.object_id}" style="display:none")
-                %div{ :style => "width:60em; height: 30em; white-space: normal;font-family:fixed; overflow:scroll" }
+                %div{ :style => "width:60em; height: 30em; white-space: normal;font-family:courier; overflow:auto" }
+                  :escaped 
+                    #{row[schema.first]}
+            - elsif row[schema.first].to_s.length > 100
+              [ 
+              %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox") Show field
+              ]
+              %div(id="info#{row.object_id}#{schema.object_id}" style="display:none")
+                %div{ :style => "width:60em; height: 30em; white-space: normal;font-family:courier; overflow:auto" }
                   :escaped 
                     #{row[schema.first]}
 
