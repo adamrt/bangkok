@@ -1,0 +1,375 @@
+body
+  margin: 0
+  padding: 0
+  font-size: 12px
+  font-family: "Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif
+  color: #333
+  background: #fff
+
+
+a
+  &:link, &:visited
+    color: #333
+    text-decoration: none
+
+  &:hover
+    color: #5b80b2
+    text-decoration: underline
+
+  img
+    border: none
+
+
+p, ol, ul, dl
+  margin: .2em 0 .8em 0
+
+
+h1
+  font-size: 18px
+  color: #666
+  padding: 0 6px 0 0
+  margin: 0 0 .2em 0
+
+
+ul
+  li
+    list-style-type: square
+    padding: 1px 0
+
+  &.plainlist
+    margin-left: 0 !important
+
+    li
+      list-style-type: none
+
+
+form, fieldset
+  margin: 0
+  padding: 0
+
+
+input, textarea, select
+  margin: 2px 0
+  padding: 2px 3px
+  vertical-align: middle
+  font-family: "Lucida Grande", Verdana, Arial, sans-serif
+  font-weight: normal
+  font-size: 11px
+
+
+textarea
+  vertical-align: top !important
+
+
+input
+  &[type=text], &[type=password]
+    border: 1px solid #ccc
+
+
+textarea, select, .vTextField
+  border: 1px solid #ccc
+
+
+.button
+  background: white url(http://weldonswestern.com/admin_media/img/admin/nav-bg.gif) bottom repeat-x
+  padding: 3px
+  color: black
+  border: 1px solid #bbb
+  border-color: #ddd #aaa #aaa #ddd
+
+
+input
+  &[type=submit], &[type=button]
+    background: white url(http://weldonswestern.com/admin_media/img/admin/nav-bg.gif) bottom repeat-x
+    padding: 3px
+    color: black
+    border: 1px solid #bbb
+    border-color: #ddd #aaa #aaa #ddd
+
+
+.submit-row input
+  background: white url(http://weldonswestern.com/admin_media/img/admin/nav-bg.gif) bottom repeat-x
+  padding: 3px
+  color: black
+  border: 1px solid #bbb
+  border-color: #ddd #aaa #aaa #ddd
+
+
+.button:active
+  background-image: url(http://weldonswestern.com/admin_media/img/admin/nav-bg-reverse.gif)
+  background-position: top
+
+
+input
+  &[type=submit]:active, &[type=button]:active
+    background-image: url(http://weldonswestern.com/admin_media/img/admin/nav-bg-reverse.gif)
+    background-position: top
+
+
+.button.default, input[type=submit].default, .submit-row input.default
+  border: 2px solid #5b80b2
+  background: #7CA0C7 url(http://weldonswestern.com/admin_media/img/admin/default-bg.gif) bottom repeat-x
+  font-weight: bold
+  color: white
+  float: right
+
+
+.button.default:active, input[type=submit].default:active
+  background-image: url(http://weldonswestern.com/admin_media/img/admin/default-bg-reverse.gif)
+  background-position: top
+
+
+.module
+  border: 1px solid #ccc
+  margin-bottom: 5px
+  background: white
+
+  p, ul, h3, h4, dl, pre
+    padding-left: 10px
+    padding-right: 10px
+
+  blockquote
+    margin-left: 12px
+
+  ul, ol
+    margin-left: 1.5em
+
+  h3
+    margin-top: .6em
+
+  h2, caption
+    margin: 0
+    padding: 2px 5px 3px 5px
+    font-size: 11px
+    text-align: left
+    font-weight: bold
+    background: #7CA0C7 url(http://weldonswestern.com/admin_media/img/admin/default-bg.gif) top left repeat-x
+    color: white
+
+
+.inline-group h2
+  margin: 0
+  padding: 2px 5px 3px 5px
+  font-size: 11px
+  text-align: left
+  font-weight: bold
+  background: #7CA0C7 url(http://weldonswestern.com/admin_media/img/admin/default-bg.gif) top left repeat-x
+  color: white
+
+
+.module table
+  border-collapse: collapse
+
+
+div.breadcrumbs
+  background: white url(http://weldonswestern.com/admin_media/img/admin/nav-bg-reverse.gif) 0 -10px repeat-x
+  padding: 2px 8px 3px 8px
+  font-size: 11px
+  color: #999
+  border-top: 1px solid white
+  border-bottom: 1px solid #ccc
+  text-align: left
+
+
+#container
+  position: relative
+  width: 100%
+  min-width: 760px
+  padding: 0
+
+
+#content
+  margin: 10px 15px
+
+
+#header
+  width: 100%
+
+
+#content-main
+  width: 100%
+  overflow: scroll
+
+
+#content-related
+  float: right
+  width: 18em
+  position: relative
+
+
+#footer
+  clear: both
+  padding: 10px
+
+
+#header
+  background: #417690
+  color: #ffc
+  overflow: hidden
+
+  a
+    &:link, &:visited
+      color: white
+
+    &:hover
+      text-decoration: underline
+
+
+#branding
+  h1
+    padding: 0 10px
+    font-size: 18px
+    margin: 8px 0
+    font-weight: normal
+    color: #f4f379
+
+  h2
+    padding: 0 10px
+    font-size: 14px
+    margin: -8px 0 8px 0
+    font-weight: normal
+    color: #ffc
+
+
+#user-tools
+  position: absolute
+  top: 0
+  right: 0
+  padding: 1.2em 10px
+  font-size: 11px
+  text-align: right
+
+#changelist
+  thead th
+
+  tbody td:first-child
+    border-left: 0
+    border-right: 1px solid #ddd
+    text-align: center
+
+  table
+    border-collapse: collapse
+    border-color: #ccc
+    border-top: 1px solid #DDDDDD
+
+  td
+    font-size: 11px
+    line-height: 13px
+    border-bottom: 1px solid #eee
+    vertical-align: top
+    padding: 5px
+    font-family: "Lucida Grande", Verdana, Arial, sans-serif
+    white-space: nowrap
+
+  th
+    text-align: left
+    font-size: 11px
+    line-height: 13px
+    border-bottom: 1px solid #eee
+    vertical-align: top
+    padding: 5px
+    font-family: "Lucida Grande", Verdana, Arial, sans-serif
+    white-space: nowrap
+
+  tbody td
+    border-left: 1px solid #ddd
+
+  tbody td:last-child
+    border-right: 1px solid #ddd
+
+  thead th:last-child
+    border-right: 1px solid #ddd
+
+  tbody tr
+    &:nth-child(even)
+      background: #edf3fe
+
+    &:nth-child(odd)
+      background: #fff
+
+  thead th
+    color: #666
+    padding: 2px 5px
+    font-size: 11px
+    background: #e1e1e1 url(http://weldonswestern.com/admin_media/img/admin/nav-bg.gif) top left repeat-x
+    border-left: 1px solid #ddd
+    border-bottom: 1px solid #ddd
+    white-space: nowrap
+    vertical-align: middle
+    &.sorted
+      background-position: bottom left !important
+
+      a
+        padding-right: 13px
+
+    &.ascending a
+      background: url(http://weldonswestern.com/admin_media/img/admin/arrow-down.gif) right .4em no-repeat
+
+    &.descending a
+      background: url(http://weldonswestern.com/admin_media/img/admin/arrow-up.gif) right .4em no-repeat
+
+  thead th:first-child, tfoot td:first-child
+    border-left: none !important
+    width: 1.5em
+    text-align: center
+
+  tfoot td
+    color: #666
+    padding: 2px 5px
+    font-size: 11px
+    background: #e1e1e1 url(http://weldonswestern.com/admin_media/img/admin/nav-bg.gif) top left repeat-x
+    border-left: 1px solid #ddd
+    border-bottom: 1px solid #ddd
+    white-space: nowrap
+    vertical-align: middle
+    border-bottom: none
+    border-top: 1px solid #ddd
+
+  tfoot
+    color: #666
+
+
+#changelist thead th a:link, thead th a:visited
+  color: #666
+  display: block
+
+
+#changelist table
+
+
+#toolbar
+  padding: 3px
+  border-bottom: 1px solid #ddd
+  background: #e1e1e1 url(http://weldonswestern.com/admin_media/img/admin/nav-bg.gif) top left repeat-x
+  color: #666
+
+  form input
+    font-size: 11px
+    padding: 1px 2px
+
+.actions
+  color: #999
+  padding: 3px
+  border-top: 1px solid #fff
+  background: white url(http://weldonswestern.com/admin_media/img/admin/nav-bg-reverse.gif) 0 -10px repeat-x
+
+  &:last-child
+    border-bottom: none
+
+  select
+    border: 1px solid #aaa
+    margin-left: 0.5em
+    padding: 1px 2px
+
+  label
+    font-size: 11px
+    margin-left: 0.5em
+
+
+#action-toggle
+  display: none
+
+
+.actions .button
+  font-size: 11px
+  padding: 1px 2px

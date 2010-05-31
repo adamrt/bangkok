@@ -62,6 +62,10 @@ class Table
 end
 
 # Routes
+get '/css/style.css' do
+  content_type 'text/css', :charset => 'utf-8'
+  sass :style
+end
 
 get '/' do
   redirect '/db'
