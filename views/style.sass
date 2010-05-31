@@ -364,3 +364,38 @@ div.breadcrumbs
 .actions .button
   font-size: 11px
   padding: 1px 2px
+
+.object-tools
+  float: right
+  font-family: Arial,Helvetica,sans-serif
+  font-size: 10px
+  font-weight: bold
+  padding-left: 0
+  margin-right: 1em
+  padding-top: 1em
+  margin-bottom: -2em
+
+  li
+    background: url("http://weldonswestern.com/admin_media/img/admin/tool-left.gif") no-repeat scroll 0 0 transparent
+    display: block
+    float: left
+    height: 16px
+    margin-left: 2px
+    padding: 0 0 0 8px
+    
+    &:hover
+      background: url("http://weldonswestern.com/admin_media/img/admin/tool-left_over.gif") no-repeat scroll 0 0 transparent
+    &:hover a
+      background: url("http://weldonswestern.com/admin_media/img/admin/tool-right_over.gif") no-repeat scroll 100% 0 #5B80B2
+  a
+    &:link, &:visited
+      background: url("http://weldonswestern.com/admin_media/img/admin/tool-right.gif") no-repeat scroll 100% 0 #999999
+      color: white
+      display: block
+      float: left
+      height: 14px
+      padding: 0.1em 14px 0.1em 8px
+
+    &:hover, li
+      background: url("http://weldonswestern.com/admin_media/img/admin/tool-right_over.gif") no-repeat scroll 100% 0 #5B80B2
+

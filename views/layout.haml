@@ -26,7 +26,23 @@
             = @table.db.opts[:database]
           &rsaquo;
           = @table
-
+          - if @table.view == 'schema'
+            &rsaquo;
+            schema view
+          - if @table.view == 'content'
+            &rsaquo;
+            content view
+          
+      - if @table
+        %ul.object-tools
+          %li
+            - if @table.view == 'content'
+              %a(href="#{@table.schema_url}" class="viewsitelink")
+                schema view
+            - if @table.view == 'schema'
+              %a(href="#{@table.content_url}" class="viewsitelink")
+                content view
+      %br(style="clear:both")
       %div#content
         %div#content-main
           %div#changelist.module

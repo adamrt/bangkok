@@ -17,7 +17,7 @@
         %td
           %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
         %td
-          %a(href='/db/#{@db.opts[:database]}/#{table}') #{ table }
+          %a(href='/db/#{@db.opts[:database]}/#{table}/content') #{ table }
         %td
           #{ @db[table].count }
 

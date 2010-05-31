@@ -93,11 +93,17 @@ get '/db/:db' do
 end
 
 get '/db/:db/:table' do
-  @table = Table.new(params)
-  haml :table_detail
+  redirect '/db/#{params[:db}/#{params[:table]}/content'
 end
 
-get '/db/:db/:table/info' do
+get '/db/:db/:table/content' do
   @table = Table.new(params)
-  haml :table_info
+  @table.view = 'content'
+  haml :table_content
+end
+
+get '/db/:db/:table/schema' do
+  @table = Table.new(params)
+  @table.view = 'schema'
+  haml :table_schema
 end
