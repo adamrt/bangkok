@@ -1,0 +1,34 @@
+%table(cellspacing="0" class="zebra")
+  %thead
+    %tr
+      %th
+        %input(type="checkbox" id="action-toggle")
+      %th
+        Name
+      %th
+        Type
+      %th
+        Allow Null
+      %th
+        Primary Key
+      %th
+        Default Value
+  %tbody
+    - @table.schema.each do |row|
+      %tr
+        %th
+          %input(type="checkbox" id="action-toggle")
+        %td= row.first
+        %td= row.last[:db_type]
+        %td
+          - if row.last[:allow_null] == true
+            %img{ :src => '/img/icon-yes.gif' }
+          - else
+            %img{ :src => '/img/icon-no.gif' }
+        %td
+          - if row.last[:primary_key] == true
+            %img{ :src => '/img/icon-yes.gif' }
+          - else
+            %img{ :src => '/img/icon-no.gif' }
+        %td= row.last[:default]
+          

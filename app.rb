@@ -95,3 +95,8 @@ get '/db/:db/:table' do
   @table = Table.new(params)
   haml :table_detail
 end
+
+get '/db/:db/:table/info' do
+  @table = Table.new(params)
+  haml :table_info
+end
