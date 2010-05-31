@@ -19,7 +19,7 @@ class Table
   def initialize(params)
     @params = params
     @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>@params[:db], :user=>USER, :password=>PASSWORD)
-    @path = '/' + @params[:db].to_s + '/' + @params[:table].to_s
+    @path = '/db/' + @params[:db].to_s + '/' + @params[:table].to_s
     @symbol = @params[:table].to_sym
     @params_list = Hash.new
     
@@ -55,7 +55,12 @@ class Table
 end
 
 # Routes
+
 get '/' do
+  redirect '/db'
+end
+
+get '/db' do
   begin
     dbh = Mysql.real_connect("localhost", "root", "")
     @rows = dbh.query("SHOW DATABASES")
@@ -65,12 +70,13 @@ get '/' do
   haml :index
 end
 
-get '/:db' do
+
+get '/db/:db' do
   @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
   haml :table_list
 end
 
-get '/:db/:table' do
+get '/db/:db/:table' do
   @table = Table.new(params)
   haml :table_detail
 end
