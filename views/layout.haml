@@ -2,39 +2,30 @@
 %html
   %head
     %title bangkok
-    %link{ :rel => "stylesheet", :href => "http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css", :type =>"text/css" }
     %link{ :rel => "stylesheet", :href => "/css/style.css", :type => "text/css" }
     %link{ :rel => "stylesheet", :href => "/css/facebox.css", :type => "text/css" }
     %script{ :type => "text/javascript", :src => "/js/jquery-1.4.2.min.js" }
     %script{ :type => "text/javascript", :src => "/js/facebox.js" }
     %script{ :type => "text/javascript" }
       jQuery(document).ready(function($) { $('a[rel*=facebox]').facebox() })
-  %body.rounded
-    %div#doc3.yui-t0
-      %div#hd
-        %h1 bangkok
-        %div#navigation
-          %ul#primary-navigation
-            %li.active
-              %a{ :href => '/' } Databases
-            %li
-              %a{ :href => '#' } Tables
+  %body.change-list
+    %div#container
+      %div#header
+        %div#branding
+          %h1#site-name bangkok
+          %div#user-tools
+            Welcome.
+            %a(href="#") Change password
+            %a(href="#") Logout
+      %div.breadcrumbs
+        %a(href="/db") Database List
+        &rsaquo;
+      %div#content.flex
+        %h1 Select something here
+        %div#content-main
+          %div#changelist.module
+            = yield
 
-          %ul#user-navigation
-            %li
-              %a{ :href => '#' } Profile
-            %li
-              %a{ :href => '#' } Settings
-            %li
-              %a{ :href => '#' } Logout
-          %div.clear
-      %div#bd
-        %div#yui-main
-          %div.yui-b
-            %div.yui-g
-              %div.block
-                %div.bd
-                  = yield
-      %div#ft
-        %p.inner
-          Copyright &copy; 2009 Blah Your Website
+        %br(class="clear")/
+
+      %div#footer

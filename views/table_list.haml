@@ -1,11 +1,23 @@
-%table#main.zebra
+%table(cellspacing="0" class="zebra")
   %thead
     %tr
-      %td
-        %a{ :href => '#' }
-          Table Name
+      %th
+        %input(type="checkbox" id="action-toggle")
+      %th
+        %a(href="#")
+          Table
+      %th
+        %a(href="#")
+          Records
+
   %tbody
     - @db.tables.each do |table|
       %tr
         %td
+          %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
+        %td
           %a(href='/db/#{@db.opts[:database]}/#{table}') #{ table }
+        %td
+          #{ @db[table].count }
+          #{ @db }
+

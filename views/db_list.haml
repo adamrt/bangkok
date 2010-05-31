@@ -1,10 +1,15 @@
-%table#main.zebra
+%table(cellspacing="0" class="zebra")
   %thead
     %tr
-      %td
-        %a{ :href => '#' } Database Name
+      %th
+        %input(type="checkbox" id="action-toggle")
+      %th
+        %a(href="#")
+          Database
   %tbody
     - while row = @rows.fetch_row do
       %tr
+        %td
+          %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
         %td
           %a(href='/db/#{row}') #{row}
