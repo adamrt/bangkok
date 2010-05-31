@@ -83,7 +83,6 @@ get '/db' do
 end
 
 get '/db/:db' do
-  @table_list = Hash.new
   @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
   haml :table_list
 end
