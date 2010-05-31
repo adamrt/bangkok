@@ -15,13 +15,12 @@ set :haml, {:format => :html5 }
 # Classes
 class Table
 
-  attr_accessor :params_list, :db, :content_url, :schema_url, :db_url, :view, :schema, :params
+  attr_accessor :db, :content_url, :schema_url, :db_url, :view, :schema, :params, :order_by, :order_type, :limit
 
   def initialize(params)
     @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
     @symbol = params[:table].to_sym
     @schema = @db.schema(@symbol)
-    @params_list = Hash.new
     @view = params[:view]
     @params = params
 
@@ -32,17 +31,16 @@ class Table
 
 
     if params[:l] and params[:l] != ''
-      @params_list['l'] = @limit = params[:l].to_i
+      @limit = params[:l].to_i
     else
-      @params_list['l'] = @limit = 25
+      @limit = 25
     end
 
     if params[:o]
-      @order = params[:o].to_sym
-      @params_list['o'] = params[:o]
-      @params_list['ot'] = params[:ot] if !params[:ot].nil?
+      @order_by = params[:o]
+      @order_type = params[:ot] if !params[:ot].nil?
     else
-      @order = nil
+      @order_by = nil
     end
   end
 
@@ -52,11 +50,11 @@ class Table
 
   def row_list
     qs = @db[@symbol].limit(@limit)
-    if @order
-      if params[:ot] == 'd'
-        qs = qs.reverse_order(@order)
+    if @order_by
+      if @order_type == 'desc'
+        qs = qs.reverse_order(@order_by.to_sym)
       else
-        qs = qs.order(@order)
+        qs = qs.order(@order_by.to_sym)
       end
     end
     return qs
