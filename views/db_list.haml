@@ -1,11 +1,13 @@
+%div.actions
+  %label Select a Database
+
 %table(cellspacing="0" class="zebra")
   %thead
     %tr
       %th
         %input(type="checkbox" id="action-toggle")
       %th
-        %a(href="#")
-          Database
+        Database
   %tbody
     - while row = @rows.fetch_row do
       %tr
