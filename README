@@ -2,17 +2,18 @@
 ## a little web interface for you databases
 
 :info
-im a python dev but wanted to do something in ruby so you will probably find alot of this code ugly
+  im a python dev but wanted to do something in ruby so you will probably find alot of this code ugly
 
 :requirements
-rubygems, sinatra, haml, sequel, mysql
+  rubygems, sinatra, haml, sequel, mysql & rack-test for tests
 
 :todo
-list databases directly from sequel (will remove the mysql dep)
-edit data functionality
-edit schema functionality
-new look
-cleanup haml (mainly around if statements)
+  list databases directly from sequel (sequel mailing list says this isnt currently possible)
+  edit data functionality
+  edit schema functionality
+  new look
+  cleanup haml (mainly around if statements)
+  add tests that don't depend on my development environment
 
 :thanks/credit
-django guys for the css
+  django guys for the css
