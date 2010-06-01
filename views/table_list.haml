@@ -1,16 +1,12 @@
 %div.actions
   %label Select a Table
-
 %table(cellspacing="0" class="zebra")
   %thead
     %tr
       %th
         %input(type="checkbox" id="action-toggle")
-      %th
-        Table
-      %th
-        Records
-
+      %th Table
+      %th Records
   %tbody
     - @db.tables.each do |table|
       %tr

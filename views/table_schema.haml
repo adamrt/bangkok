@@ -6,16 +6,11 @@
     %tr
       %th
         %input(type="checkbox" id="action-toggle")
-      %th
-        Name
-      %th
-        Type
-      %th
-        Allow Null
-      %th
-        Primary Key
-      %th
-        Default Value
+      %th Name
+      %th Type
+      %th Allow Null
+      %th Primary Key
+      %th Default Value
   %tbody
     - @table.schema.each do |row|
       %tr
