@@ -21,7 +21,6 @@ class Table
     @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
     @symbol = params[:table].to_sym
     @schema = @db.schema(@symbol)
-    @view = params[:view]
     @params = params
 
     # urls
@@ -30,7 +29,7 @@ class Table
     @db_url = '/db/' + params[:db].to_s
 
 
-    if params[:l] and params[:l] != ''
+    if !params[:l].empty?
       @limit = params[:l].to_i
     else
       @limit = 10
@@ -87,11 +86,12 @@ get '/db/:db' do
   haml :table_list
 end
 
-get '/db/:db/:table' do
-  redirect '/db/#{params[:db}/#{params[:table]}/content'
+get '/db/:db/:table/content' do
+  @table = Table.new(params)
+  haml :table_cotent
 end
 
-get '/db/:db/:table/:view' do
+get '/db/:db/:table/schema' do
   @table = Table.new(params)
-  haml :"table_#{@table.view}"
+  haml :table_schema
 end
