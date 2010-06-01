@@ -88,10 +88,12 @@ end
 
 get '/db/:db/:table/content' do
   @table = Table.new(params)
+  @table.view = 'content'
   haml :table_content
 end
 
 get '/db/:db/:table/schema' do
   @table = Table.new(params)
+  @table.view = 'schema'
   haml :table_schema
 end
