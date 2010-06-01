@@ -29,7 +29,7 @@ class Table
     @db_url = '/db/' + params[:db].to_s
 
 
-    if !params[:l].empty?
+    if params[:l] and !params[:l].empty?
       @limit = params[:l].to_i
     else
       @limit = 10
@@ -88,7 +88,7 @@ end
 
 get '/db/:db/:table/content' do
   @table = Table.new(params)
-  haml :table_cotent
+  haml :table_content
 end
 
 get '/db/:db/:table/schema' do
