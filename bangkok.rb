@@ -15,36 +15,27 @@ set :haml, {:format => :html5 }
 # Classes
 class Table
 
-  attr_accessor :db, :content_url, :schema_url, :db_url, :view, :schema, :params, :order_by, :order_type, :limit
+  attr_reader :db, :schema, :order_by, :order_type, :limit, :content_url, :schema_url, :db_url, :to_s
+  attr_accessor :view
 
   def initialize(params)
+    # db related
     @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
     @symbol = params[:table].to_sym
     @schema = @db.schema(@symbol)
-    @params = params
+
+    # get params
+    @limit = params[:l].to_i ? (params[:l] and !params[:l].empty?) : 10
+    @order_by = params[:o]  ? params[:o] : nil
+    @order_type = params[:ot] if !params[:ot].nil?
 
     # urls
     @content_url = '/db/' + params[:db] + '/' + params[:table] + '/content'
     @schema_url = '/db/' + params[:db]+ '/' + params[:table] + '/schema'
     @db_url = '/db/' + params[:db].to_s
 
-
-    if params[:l] and !params[:l].empty?
-      @limit = params[:l].to_i
-    else
-      @limit = 10
-    end
-
-    if params[:o]
-      @order_by = params[:o]
-      @order_type = params[:ot] if !params[:ot].nil?
-    else
-      @order_by = nil
-    end
-  end
-
-  def to_s
-    params[:table]
+    #is this appropriate? should i be using a method?
+    @to_s = params[:table]
   end
 
   def row_list
