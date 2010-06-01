@@ -25,6 +25,12 @@ class BangkokdbTest < Test::Unit::TestCase
   def test_table_content
     get '/db/vurbmoto/articles_article/content'
     assert last_response.ok?
+    assert last_response.body.include?("articles_article")
+  end
+  def test_table_schema
+    get '/db/vurbmoto/articles_article/schema'
+    assert last_response.ok?
+    assert last_response.body.include?("articles_article")
   end
 
   def test_ordering
