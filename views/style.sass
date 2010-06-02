@@ -161,14 +161,16 @@ input
   border-collapse: collapse
 
 
-div.breadcrumbs
-  background: white url(http://weldonswestern.com/admin_media/img/admin/nav-bg-reverse.gif) 0 -10px repeat-x
-  padding: .5em
-  font-size: 18px
-  color: #999
-  border-top: 1px solid white
-  border-bottom: 1px solid #ccc
+#breadcrumbs
+  background: #E6E6E6
+  border-bottom: 1px solid #CCCCCC
+  border-top: 1px solid #CCCCCC
+  color: #666666
+  font-size: 14px
+  font-weight: normal
+  padding: 4px 10px
   text-align: left
+  width: 100%
 
 
 #container
@@ -199,10 +201,13 @@ div.breadcrumbs
 
 
 #header
-  background: #333
-  color: #ffc
-  overflow: hidden
+  background: none repeat scroll 0 0 #333333
+  color: #EEEEEE
+  font-size: 13px
+  height: 30px
+  line-height: 14px
   width: 100%
+
   a
     &:link, &:visited
       color: white
@@ -210,22 +215,11 @@ div.breadcrumbs
     &:hover
       text-decoration: underline
 
-
-#branding
-  h1
-    padding: 0 10px
-    font-size: 18px
-    margin: 8px 0
-    font-weight: normal
-    color: #f4f379
-
-  h2
-    padding: 0 10px
-    font-size: 14px
-    margin: -8px 0 8px 0
-    font-weight: normal
-    color: #ffc
-
+#admin-title
+  border-left: 1px solid #404040
+  border-right: 1px solid #262626
+  padding: 8px 10px
+  float: left
 
 #user-tools
   position: absolute

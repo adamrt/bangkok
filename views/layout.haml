@@ -11,11 +11,9 @@
   %body.change-list
     %div#container
       %div#header
-        %div#branding
-          %h1#site-name bangkok db
-          %h2 dynamic management for your db
-          %div#user-tools
-      %div.breadcrumbs
+        %div#admin-title
+          Bangkok Database Managment
+      %div#breadcrumbs
         %a(href="/db") Databases
         - if @db
           &rsaquo;
@@ -25,14 +23,17 @@
           %a(href="#{@table.db_url}")
             = @table.db.opts[:database]
           &rsaquo;
-          = @table
-          - if @table.view == 'schema'
-            [schema]
           - if @table.view == 'content'
-            [content]
-          - if @table.view == 'content'
-            [edit]
-          
+            = @table
+          - elsif @table.view == 'schema'
+            %a(href="#{@table.url}")= @table
+            &rsaquo;
+            schema
+          - elsif @table.view == 'edit'
+            %a(href="#{@table.url}")= @table
+            &rsaquo;
+            edit
+
       - if @table
         %ul.object-tools
           %li
