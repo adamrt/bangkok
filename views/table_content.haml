@@ -15,6 +15,7 @@
   %thead
     %tr
       %th
+      %th
         %input(type="checkbox" id="action-toggle")
       - @table.schema.each do |header|
         - if @table.order_by == header.first.to_s
@@ -28,7 +29,7 @@
           %th
             %a(href='#{@table.content_url}?o=#{header.first}&l=#{@table.limit}')= header.first.to_s
   %tbody
-    - @table.row_list.each do |row|
+    - @table.dataset.each do |row|
       %tr
         %td
           %input(type="checkbox" class="action-select" value="45" name="_selected_action")/

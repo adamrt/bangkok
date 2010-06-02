@@ -5,8 +5,8 @@
         - @table.schema.each do |schema|
           %tr(style="width:100%")
             %td
-            %td= schema.first
             %td(style="width:100%")
+              %label(style="width:8em;float:left")= schema.first
               - if schema.last[:db_type] == 'longtext'
                 %textarea(style="width:40%; height:10em" name="#{schema.first}")
                   #{column[schema.first]}
