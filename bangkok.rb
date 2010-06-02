@@ -4,6 +4,7 @@ require 'haml'
 require 'sequel'
 require 'mysql'
 
+Sequel.extension :pagination
 
 # Settings
 HOST = 'localhost'
@@ -15,29 +16,34 @@ set :haml, {:format => :html5 }
 # Classes
 class Table
 
-  attr_reader :db, :schema, :order_by, :order_type, :limit, :content_url, :content_edit_url, :schema_url, :db_url, :to_s, :symbol
+  attr_reader :db, :symbol, :schema, :url, :db_url
   attr_accessor :view
 
   def initialize(params)
-    # db related
+    @params = params
     @db = Sequel.connect(:adapter=>ADAPTER, :host=>HOST, :database=>params[:db], :user=>USER, :password=>PASSWORD)
     @symbol = params[:table].to_sym
     @schema = @db.schema(@symbol)
-
-    # get params
-    @limit = params[:l].to_i ? (params[:l] and !params[:l].empty?) : 10
-    @order_by = params[:o]  ? params[:o] : nil
-    @order_type = params[:ot] if !params[:ot].nil?
-
-    # urls
-    base_url = '/db/' + params[:db] + '/' + params[:table]
-    @content_url = base_url + '/content'
-    @content_edit_url = @content_url + '/edit/' #plus a pk
-    @schema_url = base_url + '/schema'
+    @url = '/db/' + params[:db] + '/' + params[:table]
     @db_url = '/db/' + params[:db]
+  end
 
-    #is this appropriate? should i be using a method?
-    @to_s = params[:table]
+  def to_s
+    return @params[:table]
+  end
+  
+  def page
+    if @params[:page].to_i > 0
+      return @params[:page].to_i
+    end
+    return 1
+  end
+
+  def order_type
+    if @params[:ot] != 'asc' or @params[:ot] != 'desc'
+      return 'asc'
+    end
+    return @params[:ot]
   end
 
   def pk
@@ -47,14 +53,29 @@ class Table
       end
     end
   end
+
+  def limit
+    if @params[:l].to_i > 0
+      return @params[:l].to_i
+    else
+      return 10
+    end
+  end
+    
+  def order_by
+    if @params[:o] and !@params[:o].nil? and !@params[:o].empty? 
+      return @params[:o]
+    end
+    return pk
+  end
   
-  def row_list
-    qs = @db[@symbol].limit(@limit)
-    if @order_by
-      if @order_type == 'desc'
-        qs = qs.reverse_order(@order_by.to_sym)
+  def dataset
+    qs = @db[@symbol].paginate(page, limit)
+    if order_by
+      if order_type == 'desc'
+        qs = qs.reverse_order(order_by.to_sym)
       else
-        qs = qs.order(@order_by.to_sym)
+        qs = qs.order(order_by.to_sym)
       end
     end
     return qs
@@ -87,19 +108,26 @@ get '/db/:db' do
   haml :table_list
 end
 
-get '/db/:db/:table/content' do
+get '/db/:db/:table' do
   @table = Table.new(params)
   @table.view = 'content'
-  haml :table_content
+  haml :table_detail
 end
 
-get '/db/:db/:table/content/edit/:pk' do
+get '/db/:db/:table/schema' do
+  @table = Table.new(params)
+  @table.view = 'schema'
+  haml :table_schema
+end
+
+get '/db/:db/:table/:pk' do
   @table = Table.new(params)
   @object = @table.db[@table.symbol].filter(@table.pk.to_sym => params[:pk])
+  @table.view = 'edit'
   haml :row_edit
 end
 
-post '/db/:db/:table/content/edit/:pk' do
+post '/db/:db/:table/:pk' do
   @table = Table.new(params)
   post = {}
   @table.schema.each do |s|
@@ -107,11 +135,6 @@ post '/db/:db/:table/content/edit/:pk' do
   end
   @table.db[@table.symbol].filter(@table.pk.to_sym => params[:pk]).update(post)
   @object = @table.db[@table.symbol].filter(@table.pk.to_sym => params[:pk])
+  @table.view = 'edit'
   haml :row_edit
-end
-
-get '/db/:db/:table/schema' do
-  @table = Table.new(params)
-  @table.view = 'schema'
-  haml :table_schema
 end

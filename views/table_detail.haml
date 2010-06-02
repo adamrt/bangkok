@@ -1,13 +1,14 @@
 %div.actions
   %form(method="get" action="" id="record-limit-form")
     %label Records: 
+    %input(type="hidden" name="ot" value="#{@table.order_type}")
+    %input(type="hidden" name="o" value="#{@table.order_by}")
+    %input(type="hidden" name="page" value="#{@table.page}")
     %select#record-limit-select(name="l")
       %option(selected="" value="10") --------
       %option 10
       %option 25
       %option 100
-      %option 500
-      %option All
 %script(type="text/javascript")
   $("#record-limit-select").change(function() { this.form.submit(); })
 
@@ -21,22 +22,21 @@
         - if @table.order_by == header.first.to_s
           - if @table.order_type == 'desc'
             %th.sorted.descending
-              %a(href='#{@table.content_url}?o=#{header.first}&l=#{@table.limit}&ot=asc')= header.first.to_s
+              %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}&ot=asc')= header.first.to_s
           - else
             %th.sorted.ascending
-              %a(href='#{@table.content_url}?o=#{header.first}&l=#{@table.limit}&ot=desc')= header.first.to_s
+              %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}&ot=desc')= header.first.to_s
         - else
           %th
-            %a(href='#{@table.content_url}?o=#{header.first}&l=#{@table.limit}')= header.first.to_s
+            %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}')= header.first.to_s
   %tbody
     - @table.dataset.each do |row|
       %tr
         %td
           %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
         %td 
-          %a(href="#{@table.content_edit_url}#{row[@table.pk.to_sym]}")
+          %a(href="#{@table.url}/#{row[@table.pk.to_sym]}")
             Edit
-
         - @table.schema.each do |schema|
           %td
             -# Use facebox for longtext fields
@@ -65,3 +65,6 @@
 
             - else
               #{row[schema.first]}
+
+- 1.upto(@table.dataset.page_count) do |page|
+  %a(href='#{@table.url}?o=#{@table.order_by}&l=#{@table.limit}&page=#{page}')= page

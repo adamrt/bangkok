@@ -30,15 +30,17 @@
             [schema]
           - if @table.view == 'content'
             [content]
+          - if @table.view == 'content'
+            [edit]
           
       - if @table
         %ul.object-tools
           %li
             - if @table.view == 'content'
-              %a(href="#{@table.schema_url}" class="viewsitelink")
+              %a(href="#{@table.url}/schema" class="viewsitelink")
                 schema view
             - if @table.view == 'schema'
-              %a(href="#{@table.content_url}" class="viewsitelink")
+              %a(href="#{@table.url}" class="viewsitelink")
                 content view
       %br(style="clear:both")
       %div#content
