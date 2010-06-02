@@ -30,9 +30,11 @@ class Table
     @order_type = params[:ot] if !params[:ot].nil?
 
     # urls
-    @content_url = '/db/' + params[:db] + '/' + params[:table] + '/content'
-    @schema_url = '/db/' + params[:db]+ '/' + params[:table] + '/schema'
-    @db_url = '/db/' + params[:db].to_s
+    base_url = '/db/' + params[:db] + '/' + params[:table]
+    @content_url = base_url + '/content'
+    @content_edit_url = @content_url + '/edit/' #plus a pk
+    @schema_url = base_url + '/schema'
+    @db_url = '/db/' + params[:db]
 
     #is this appropriate? should i be using a method?
     @to_s = params[:table]
