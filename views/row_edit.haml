@@ -1,0 +1,20 @@
+%form(method="post" action="")
+  %table(cellspacing="0")
+    %tbody
+      - @object.each do |column|
+        - @table.schema.each do |schema|
+          %tr(style="width:100%")
+            %td
+            %td= schema.first
+            %td(style="width:100%")
+              - if schema.last[:db_type] == 'longtext'
+                %textarea(style="width:40%; height:10em" name="#{schema.first}")
+                  #{column[schema.first]}
+              - elsif schema.last[:type] == :boolean
+                - if column[schema.first] == true
+                  %input(type="checkbox" name="#{schema.first}" value="#{column[schema.first]}" checked)
+                - else
+                  %input(type="checkbox" name="#{schema.first}" value="#{column[schema.first]}")
+              - else
+                %input(type="text" style="width:40%" name="#{schema.first}" value="#{column[schema.first].to_s}")
+  %input(type="submit" value="Submit")              

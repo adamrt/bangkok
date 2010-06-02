@@ -32,6 +32,9 @@
       %tr
         %td
           %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
+        %td 
+          %a(href="#{@table.content_edit_url}#{row[@table.pk.to_sym]}")
+            Edit
 
         - @table.schema.each do |schema|
           %td

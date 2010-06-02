@@ -15,7 +15,7 @@ set :haml, {:format => :html5 }
 # Classes
 class Table
 
-  attr_reader :db, :schema, :order_by, :order_type, :limit, :content_url, :schema_url, :db_url, :to_s
+  attr_reader :db, :schema, :order_by, :order_type, :limit, :content_url, :content_edit_url, :schema_url, :db_url, :to_s, :symbol
   attr_accessor :view
 
   def initialize(params)
@@ -40,6 +40,14 @@ class Table
     @to_s = params[:table]
   end
 
+  def pk
+    @schema.each do |c|
+      if c.last[:primary_key] == true
+        return c.first.to_s
+      end
+    end
+  end
+  
   def row_list
     qs = @db[@symbol].limit(@limit)
     if @order_by
@@ -83,6 +91,23 @@ get '/db/:db/:table/content' do
   @table = Table.new(params)
   @table.view = 'content'
   haml :table_content
+end
+
+get '/db/:db/:table/content/edit/:pk' do
+  @table = Table.new(params)
+  @object = @table.db[@table.symbol].filter(@table.pk.to_sym => params[:pk])
+  haml :row_edit
+end
+
+post '/db/:db/:table/content/edit/:pk' do
+  @table = Table.new(params)
+  post = {}
+  @table.schema.each do |s|
+    post[s.first.to_s] = params[s.first.to_s]
+  end
+  @table.db[@table.symbol].filter(@table.pk.to_sym => params[:pk]).update(post)
+  @object = @table.db[@table.symbol].filter(@table.pk.to_sym => params[:pk])
+  haml :row_edit
 end
 
 get '/db/:db/:table/schema' do
