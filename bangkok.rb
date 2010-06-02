@@ -31,7 +31,7 @@ class Table
   def to_s
     return @params[:table]
   end
-  
+
   def page
     if @params[:page].to_i > 0
       return @params[:page].to_i
@@ -61,14 +61,14 @@ class Table
       return 10
     end
   end
-    
+
   def order_by
-    if @params[:o] and !@params[:o].nil? and !@params[:o].empty? 
+    if @params[:o] and !@params[:o].nil? and !@params[:o].empty?
       return @params[:o]
     end
     return pk
   end
-  
+
   def dataset
     qs = @db[@symbol].paginate(page, limit)
     if order_by
