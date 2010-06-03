@@ -1,70 +1,72 @@
-%div.actions
-  %form(method="get" action="" id="record-limit-form")
-    %label Records: 
-    %input(type="hidden" name="ot" value="#{@table.order_type}")
-    %input(type="hidden" name="o" value="#{@table.order_by}")
-    %input(type="hidden" name="page" value="#{@table.page}")
-    %select#record-limit-select(name="l")
-      %option(selected="" value="10") --------
-      %option 10
-      %option 25
-      %option 100
-%script(type="text/javascript")
-  $("#record-limit-select").change(function() { this.form.submit(); })
+%div#changelist.module
+  %div.actions
+    %form(method="get" action="" id="record-limit-form")
+      %label Records:
+      %input(type="hidden" name="ot" value="#{@table.order_type}")
+      %input(type="hidden" name="o" value="#{@table.order_by}")
+      %input(type="hidden" name="page" value="#{@table.page}")
+      %select#record-limit-select(name="l")
+        %option(selected="" value="10") --------
+        %option 10
+        %option 25
+        %option 100
+  %script(type="text/javascript")
+    $("#record-limit-select").change(function() { this.form.submit(); })
 
-%table(cellspacing="0" class="zebra")
-  %thead
-    %tr
-      %th
-      %th
-        %input(type="checkbox" id="action-toggle")
-      - @table.schema.each do |header|
-        - if @table.order_by == header.first.to_s
-          - if @table.order_type == 'desc'
-            %th.sorted.descending
-              %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}&ot=asc')= header.first.to_s
-          - else
-            %th.sorted.ascending
-              %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}&ot=desc')= header.first.to_s
-        - else
-          %th
-            %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}')= header.first.to_s
-  %tbody
-    - @table.dataset.each do |row|
+  %table(cellspacing="0" class="zebra")
+    %thead
       %tr
-        %td
-          %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
-        %td 
-          %a(href="#{@table.url}/#{row[@table.pk.to_sym]}")
-            Edit
-        - @table.schema.each do |schema|
-          %td
-            -# Use facebox for longtext fields
-            - if schema.last[:db_type] == 'longtext'
-              [ 
-              %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox") Show field
-              ]
-              %div(id="info#{row.object_id}#{schema.object_id}" style="display:none")
-                %div{ :style => "width:60em; height: 30em; white-space: normal;font-family:courier; overflow:auto" }
-                  :escaped 
-                    #{row[schema.first]}
-            - elsif row[schema.first].to_s.length > 100
-              [ 
-              %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox") Show field
-              ]
-              %div(id="info#{row.object_id}#{schema.object_id}" style="display:none")
-                %div{ :style => "width:60em; height: 30em; white-space: normal;font-family:courier; overflow:auto" }
-                  :escaped 
-                    #{row[schema.first]}
-
-            - elsif schema.last[:type] == :boolean
-              - if row[schema.first] == true
-                %img{ :src => '/img/icon-yes.gif' }
-              - else
-                %img{ :src => '/img/icon-no.gif' }
-
+        %th
+        %th
+          %input(type="checkbox" id="action-toggle")
+        - @table.schema.each do |header|
+          - if @table.order_by == header.first.to_s
+            - if @table.order_type == 'desc'
+              %th.sorted.descending
+                %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}&ot=asc')= header.first.to_s
             - else
-              #{row[schema.first]}
+              %th.sorted.ascending
+                %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}&ot=desc')= header.first.to_s
+          - else
+            %th
+              %a(href='#{@table.url}?o=#{header.first}&l=#{@table.limit}')= header.first.to_s
+    %tbody
+      - @table.dataset.each do |row|
+        %tr
+          %td
+            %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
+          %td
+            %a(href="#{@table.url}/#{row[@table.pk.to_sym]}")
+              Edit
+          - @table.schema.each do |schema|
+            %td
+              -# Use facebox for longtext fields
+              - if schema.last[:db_type] == 'longtext'
+                [
+                %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox") Show field
+                ]
+                %div(id="info#{row.object_id}#{schema.object_id}" style="display:none")
+                  %div{ :style => "width:60em; height: 30em; white-space: normal;font-family:courier; overflow:auto" }
+                    :escaped
+                      #{row[schema.first]}
+              - elsif row[schema.first].to_s.length > 100
+                [
+                %a(href="#info#{row.object_id}#{schema.object_id}" rel="facebox") Show field
+                ]
+                %div(id="info#{row.object_id}#{schema.object_id}" style="display:none")
+                  %div{ :style => "width:60em; height: 30em; white-space: normal;font-family:courier; overflow:auto" }
+                    :escaped
+                      #{row[schema.first]}
+  
+              - elsif schema.last[:type] == :boolean
+                - if row[schema.first] == true
+                  %img{ :src => '/img/icon-yes.gif' }
+                - else
+                  %img{ :src => '/img/icon-no.gif' }
+  
+              - else
+                #{row[schema.first]}
 
-- 1.upto(@table.dataset.page_count) do |page|
-  %a(href='#{@table.url}?o=#{@table.order_by}&l=#{@table.limit}&page=#{page}')= page
+%div#pagination
+  - 1.upto(@table.dataset.page_count) do |page|
+    %a(href='#{@table.url}?o=#{@table.order_by}&l=#{@table.limit}&page=#{page}')= page

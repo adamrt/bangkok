@@ -38,16 +38,15 @@
         %ul.object-tools
           %li
             - if @table.view == 'content'
-              %a(href="#{@table.url}/schema" class="viewsitelink")
-                schema view
+              %a(href="#{@table.url}/schema")
+                View Schema
             - if @table.view == 'schema'
-              %a(href="#{@table.url}" class="viewsitelink")
-                content view
+              %a(href="#{@table.url}")
+                View Content
       %br(style="clear:both")
       %div#content
         %div#content-main
-          %div#changelist.module
-            = yield
+          = yield
 
         %br(style="clear:both")
 

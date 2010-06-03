@@ -1,16 +1,17 @@
-%div.actions
-  %label Select a Database
+%div#changelist.module
+  %div.actions
+    %label Select a Database
 
-%table(cellspacing="0" class="zebra")
-  %thead
-    %tr
-      %th
-        %input(type="checkbox" id="action-toggle")
-      %th Database
-  %tbody
-    - while row = @rows.fetch_row do
+  %table(cellspacing="0" class="zebra")
+    %thead
       %tr
-        %td
-          %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
-        %td
-          %a(href='/db/#{row}') #{row}
+        %th
+          %input(type="checkbox" id="action-toggle")
+        %th Database
+    %tbody
+      - while row = @rows.fetch_row do
+        %tr
+          %td
+            %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
+          %td
+            %a(href='/db/#{row}') #{row}

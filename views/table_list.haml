@@ -1,19 +1,19 @@
-%div.actions
-  %label Select a Table
-%table(cellspacing="0" class="zebra")
-  %thead
-    %tr
-      %th
-        %input(type="checkbox" id="action-toggle")
-      %th Table
-      %th Records
-  %tbody
-    - @db.tables.each do |table|
+%div#changelist.module
+  %div.actions
+    %label Select a Table
+  %table(cellspacing="0" class="zebra")
+    %thead
       %tr
-        %td
-          %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
-        %td
-          %a(href='/db/#{@db.opts[:database]}/#{table}') #{ table }
-        %td
-          #{ @db[table].count }
-
+        %th
+          %input(type="checkbox" id="action-toggle")
+        %th Table
+        %th Records
+    %tbody
+      - @db.tables.each do |table|
+        %tr
+          %td
+            %input(type="checkbox" class="action-select" value="45" name="_selected_action")/
+          %td
+            %a(href='/db/#{@db.opts[:database]}/#{table}') #{ table }
+          %td
+            #{ @db[table].count }
