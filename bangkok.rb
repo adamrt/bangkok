@@ -40,7 +40,7 @@ class Table
   end
 
   def order_type
-    if @params[:ot] != 'asc' or @params[:ot] != 'desc'
+    if @params[:ot] != 'asc' and @params[:ot] != 'desc'
       return 'asc'
     end
     return @params[:ot]
